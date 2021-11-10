@@ -22,6 +22,9 @@
 /* Endpoint type tables */
 XUD_EpType epTypeTableOut[EP_COUNT_OUT] = {XUD_EPTYPE_CTL, XUD_EPTYPE_BUL, XUD_EPTYPE_BUL, XUD_EPTYPE_BUL, XUD_EPTYPE_BUL, XUD_EPTYPE_BUL};
 XUD_EpType epTypeTableIn[EP_COUNT_IN] =   {XUD_EPTYPE_CTL, XUD_EPTYPE_BUL, XUD_EPTYPE_BUL, XUD_EPTYPE_BUL, XUD_EPTYPE_BUL, XUD_EPTYPE_BUL};
+extern XUD_Result_t XUD_SetReady_In(XUD_ep ep, unsigned char buffer[], int len);
+extern int XUD_SetReady_Out(XUD_ep ep, unsigned char buffer[]);
+extern XUD_Result_t XUD_SetReady_InPtr(XUD_ep ep, unsigned addr, int len);
 
 unsigned test_func(chanend c_ep_out[EP_COUNT_OUT], chanend c_ep_in[EP_COUNT_IN])
 {
@@ -41,7 +44,7 @@ unsigned test_func(chanend c_ep_out[EP_COUNT_OUT], chanend c_ep_in[EP_COUNT_IN])
     XUD_ep ep_in = XUD_InitEp(c_ep_in[TEST_EP_NUM]);
     XUD_SetStall(ep_out);
     XUD_SetStall(ep_in);
-   
+
     XUD_SetReady_Out(ep_out, outBuffer);
     XUD_SetReady_In(ep_in, inBuffer, PKT_LENGTH_START);
     XUD_SetReady_Out(ep_ctrl, ctrlBuffer);
